@@ -110,6 +110,7 @@ public class GameStage extends Stage{
 				player.setShootin(false);
 				msg = "2Å"+player.getId()+"Å3";
 			}*/
+			
 			if(msg!=null){
 				if(client!=null)
 					client.sendPacket(msg);

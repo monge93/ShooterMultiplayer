@@ -172,6 +172,13 @@ public class ServerManager implements Runnable{
 			p.moveUp(movUp);
 			p.setPosition(Float.parseFloat(params[5]), Float.parseFloat(params[6]));
 			p.setShootin(shooting);
+			
+			if(p.getLife()<=0){ 
+				//p.setActive(false);
+				p.remove();
+				resendToClients(new String("6Å"+p.getId()), -1);
+			}
+			resendToClients(data, id);
 		}
 	}
 	private void resendToClients(String data, int senderId){

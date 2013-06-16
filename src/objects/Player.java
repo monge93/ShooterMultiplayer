@@ -79,8 +79,8 @@ public class Player extends Actor {
 	public void setNickname(String arg0){ label.setText( new String(arg0) ); }
 	public String getNickname() { return label.getText().toString(); }
 	public void setPositionById(){
-		float x = (float)(Math.random()*Gdx.graphics.getWidth());
-		float y = (float)(Math.random()*Gdx.graphics.getHeight());
+		float x = (float)(Math.random()*Gdx.graphics.getWidth()-33);
+		float y = (float)(Math.random()*Gdx.graphics.getHeight()-33);
 		setPosition(x, y);
 		//setPosition(Gdx.graphics.getWidth()/4 + id*40,Gdx.graphics.getHeight()/2);
 	}

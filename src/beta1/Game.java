@@ -27,7 +27,7 @@ public class Game implements ApplicationListener {
 		
 		startStage.setGameStage(gamestage);
 		syncTime = 0;
-		syncDelay = 0.1f;
+		syncDelay = 0.05f;
 		//runningTime = 0;
 	}
 
@@ -49,9 +49,10 @@ public class Game implements ApplicationListener {
 			gamestage.draw();
 			gamestage.checkCollisions();
 			if(syncTime>=syncDelay){
-				if(startStage.getServerManager()!=null)
-					startStage.getServerManager().synchronizeClients();
-				else if(gamestage.getClientManager()!=null)
+				//if(startStage.getServerManager()!=null)
+				//	startStage.getServerManager().synchronizeClients();
+				//else
+					if(gamestage.getClientManager()!=null)
 					gamestage.getClientManager().sendStateToServer();
 				syncTime = 0;
 			}
@@ -77,7 +78,7 @@ public class Game implements ApplicationListener {
 		// TODO Auto-generated method stub
 		AvailableRoomList db = startStage.getDatabaseManager();
 		if(startStage.getServerManager()!=null){
-			db.removeServer(db.getIP());
+			if(StartMenu.isOnline()) db.removeServer(db.getIP());
 			System.out.println("(Servidor)\nPacotes Recebidos = "+ServerManager.getPacotesRecebido()
 					+" ("+ ServerManager.getBytesRecebidos()/1024 +" KB)\nPacotes Enviados = "
 					+ServerManager.getPacotesEnviados() + " ("+ServerManager.getBytesEnviados()/1024+" KB)");

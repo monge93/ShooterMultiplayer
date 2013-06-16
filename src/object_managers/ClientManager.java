@@ -51,7 +51,7 @@ public class ClientManager implements Runnable {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.serverIP = "localhost";
+//		this.serverIP = "localhost";
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class ClientManager implements Runnable {
 		}
 	}
 	public void sendStateToServer(){
-		if(player.isActive()){
+		if(player!=null && player.isActive()){
 			byte[] buf = player.getState().getBytes();
 			try{
 				DatagramPacket out = new DatagramPacket
@@ -113,6 +113,7 @@ public class ClientManager implements Runnable {
 				socket.send(out);
 				bytesEnviados+=buf.length;
 				pacotesEnviados+=1;
+				if(player.getLife()<=0) player.setActive(false);
 			}catch(Exception e){ e.printStackTrace(); }
 		}
 	}
@@ -144,7 +145,7 @@ public class ClientManager implements Runnable {
 					if(Integer.parseInt(params[i+2]) == 1)
 						playerList.getPlayer(i).setActive(false);
 				}catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				playerList.getPlayer(i).toBack();
 				playerList.getPlayer(i).setNickname(params[i+2]);
