@@ -8,6 +8,7 @@ import objects.Player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -21,9 +22,12 @@ public class GameStage extends Stage{
 	ClientManager client;
 	Chat chat;
 	static Skin darkSkin;
+	Music backgroundMusic;
+	
 	public GameStage(){
 		active = false;
 		darkSkin = new Skin(Gdx.files.internal("assets/data/darkuiskin.json"));
+		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/music/Jeremy_Soule_Lysan_39_s_Lair.mp3"));
 	}
 	public static Skin getDarkSkin(){ return darkSkin; }
 	public void setChat(Chat c){ chat = c; addActor(chat); chat.toFront(); }
@@ -176,5 +180,10 @@ public class GameStage extends Stage{
 	}
 	public void setPlayer(Player pl){
 		player = pl;
+	}
+	public void playMusic(){ 
+		backgroundMusic.setLooping(true);
+		backgroundMusic.setVolume(0.5f);
+		backgroundMusic.play(); 
 	}
 }

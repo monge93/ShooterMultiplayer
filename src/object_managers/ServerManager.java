@@ -45,7 +45,8 @@ public class ServerManager implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+
+		stg.playMusic();
 		while(true){
 			try{
 				//System.out.println("waiting for packet");////
@@ -98,8 +99,9 @@ public class ServerManager implements Runnable{
 				resendToClients( new String("3Å"+playerList.getSize()+"Å"+params[2] ) , playerList.getSize()+1 );
 				playerList.addPlayer(pkt.getAddress().getHostAddress(), pkt.getPort());
 				playerList.getPlayer(playerList.getSize()-1).setNickname(params[2]);
+				stg.addActor(playerList.getPlayer(playerList.getSize()-1));
 				for(int i=0;i<playerList.getSize(); i++) {
-					stg.addActor(playerList.getPlayer(i));
+					//stg.addActor(playerList.getPlayer(i));
 					playerList.getPlayer(i).toBack();
 				}
 			}catch (Exception e) {
@@ -176,6 +178,7 @@ public class ServerManager implements Runnable{
 			if(p.getLife()<=0){ 
 				//p.setActive(false);
 				p.remove();
+				p.setNickname("968723");
 				resendToClients(new String("6Å"+p.getId()), -1);
 			}
 			resendToClients(data, id);

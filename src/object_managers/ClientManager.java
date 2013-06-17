@@ -57,7 +57,7 @@ public class ClientManager implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		stg.playMusic();
 		String bs = new String("0≈ip≈"+nickname);
 		byte[] buf = bs.getBytes();
 		
@@ -153,6 +153,12 @@ public class ClientManager implements Runnable {
 			player = playerList.getPlayerById(id);
 			playerList.getPlayer(id).toBack();
 			stg.setPlayer(player);
+			
+			for(int i=0;i<playerList.getSize(); i++)
+				try{
+					if(Integer.parseInt(playerList.getPlayer(i).getNickname()) == 968723)
+						playerList.getPlayer(i).setActive(false);
+				}catch(Exception e){ }
 		}
 		else if(type==2){ //atualizar movimento de um player
 			//System.out.println("client recebeu pack tipo2");
@@ -216,14 +222,17 @@ public class ClientManager implements Runnable {
 				shooting = true;
 			
 			Player p = playerList.getPlayerById(id);
-			//p.setDirection(movLeft, movRight, movDown, movUp);
 			if(p!=null){
-				p.moveLeft(movLeft);
-				p.moveRight(movRight);
-				p.moveDown(movDown);
-				p.moveUp(movUp);
-				p.setPosition(Float.parseFloat(params[5]), Float.parseFloat(params[6]));
-				p.setShootin(shooting);
+				if( Integer.parseInt(params[7]) <= 0) 
+					p.setActive(false);
+				else{
+					p.moveLeft(movLeft);
+					p.moveRight(movRight);
+					p.moveDown(movDown);
+					p.moveUp(movUp);
+					p.setPosition(Float.parseFloat(params[5]), Float.parseFloat(params[6]));
+					p.setShootin(shooting);
+				}
 			}
 		}
 	}
